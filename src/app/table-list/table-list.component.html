@@ -1,0 +1,91 @@
+<div class="main-content"  >
+  <div class="container-fluid">
+      <div class="row">
+        <!-- Marklar Tablosu -->
+        <!-- <div class="col-md-12">
+              <div class="card card-plain">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title mt-0">Markalar</h4>
+                      <p class="card-category"> Here is a subtitle for this table</p>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table table-hover">
+                              <thead class=" text-primary" >
+                                  <th>Id</th>
+                                  <th>Marka Adı</th>
+                              </thead>
+                              <tbody>                                
+                                <tr *ngFor="let brand of brands">
+                                    <th scope="row">{{ brand.id }}</th>
+                                    <td>{{ brand.brandName }}</td>
+                                    <td>                   
+                                   </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div> -->
+
+          <!--Tablo-->
+          
+          <div class="col-md-12">
+            <div class="card card-plain">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title mt-0">Bilgi Tablosu</h4>
+                    <p class="card-category"> Detaylı Bilgilendimeler</p>
+                </div>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Müşteri Ad Soyad - Marka - SerialNo - Email - Gsm Bilgierine Göre Arayınız" type="text" [(ngModel)]="filterText" class="form-control"
+                     id="filterText" style="width: 200px;">
+                  </mat-form-field>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class=" text-primary" >
+                                <th>Ürün Id</th>
+                                   <th>Marka</th>
+                                   <th>Oem</th>
+                                   <th>Kategori</th>
+                                    <th>SerialNo</th>
+                                     <th>Arıza Adı</th>  
+                                     <th>Durumu</th>                           
+                                   <th>Yapılan İşlem</th>
+                                    <th>Durum Notu</th>
+                                   <th>Fiyat</th>
+                                   <th>Müşteri Ad-Soyad</th>
+                                   <th>Email</th>
+                                    <th>Gsm</th>
+                                   <th>Personel AdıSoyadı</th>
+                                   <th>Oluşturulduğu Tarih</th>                                 
+                                    <th>Değiştirildiği Tarih</th>
+                                   <th>Aktif-Pasif</th>  
+                            </thead>
+                            <tbody>                                
+                              <tr *ngFor="let commonDto of commonDtos | commonfilterPipe:filterText">
+                                  <th scope="row">{{ commonDto.productId}}</th>
+                                  <td>{{ commonDto.brandName }}</td>
+                                  <td>{{ commonDto.oemName }}</td>
+                                  <td>{{ commonDto.categoryName }}</td>
+                                  <td>{{ commonDto.serialNo }}</td>
+                                  <td>{{ commonDto.faultName }}</td>
+                                  <td>{{ commonDto.stateName }}</td>
+                                  <td>{{ commonDto.madeProcess }}</td> 
+                                  <td>{{ commonDto.stateNote }}</td>
+                                  <td>{{ commonDto.price }}</td>
+                                  <td>{{ commonDto.customerFirstName }}{{ commonDto.customerLastName }}</td>
+                                  <td>{{ commonDto.customerEmail }}</td>
+                                  <td>{{ commonDto.customerGsm }}</td>          
+                                  <td>{{ commonDto.userFirstName }}{{ commonDto.userLastName }}</td>
+                                  <td>{{ commonDto.createdDate }}</td>  
+                                  <td>{{ commonDto.modifiedDate }}</td>
+                                  <td>{{ commonDto.status }}</td>                 
+                                 
+                                                     
+                                
+                                 </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>

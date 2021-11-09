@@ -1,0 +1,174 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-7 col-md-7">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                         <button class="btn btn-fill btn-success"
+                            style="float: right" id="ekle" name="ekle"  (click)="personelAdded()"> Personel Ekle </button>
+                            <button class="btn btn-fill btn-success"
+                            style="float: right" id="ekle" name="ekle"  (click)="personelAthorization()"> Personel Yetki Ekle </button>
+                        <h4 class="card-title">Yetkilendirme/Kayıt Etme</h4>
+                        <p class="card-category"></p>
+
+                    </div>
+                    <br><br> 
+
+                        <!--Personel Kayıt Ekranı-->
+                    <form [formGroup]="userInfoForm" *ngIf="personAdd==true">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="col-md"> Adı</label>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Adı" type="text" class="form-control"
+                                        formControlName="firstName" style="width: 200px;">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="col-md">Soyadı</label>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Soyad" type="text" class="form-control"
+                                        formControlName="lastName" style="width: 200px;">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="col-md">Email Adı</label>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Email" type="text" class="form-control"
+                                        formControlName="email" style="width: 200px;">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="col-md">Password </label>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Password" type="text" class="form-control"
+                                        formControlName="password" style="width: 200px;">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="col-md">Gsm</label>
+                            </div>
+                            <div class="col-md-2">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Gsm" type="text" class="form-control"
+                                        formControlName="gsm" style="width: 200px;">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="col-md-2">
+                                <label class="col-md">Durumu</label>
+                            </div>
+                            <select formControlName="status">
+                                <option value="1">Aktif </option>
+                                <option value="0">Pasif</option>
+                            </select>
+                        </div> -->
+                        <div class="col-8">
+                        <button type="button" (click)="register()" class="btn btn-fill btn-success">Kaydet</button>
+                    </div>
+                    </form><!--Personel Kayıt Ekranı Bitiş-->
+
+                    <!--Yetkilendirme Ekranı-->
+                    <form [formGroup]="userAthorizationAddingForm" *ngIf="personelAthorizationControl==true">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="col-md">Yetkilendirme</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="category" id="category" class="form-control" searchdisable="true" formControlName="operationClaimId">
+                                <option [value]="operationClaim.id" *ngFor="let operationClaim of operationClaims">
+                                    {{operationClaim.operationName}}
+                                </option>
+                            </select>
+                            </div>                                             
+                        </div>                  
+                                     
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="col-md">Personel </label>
+                            </div>
+                            <div class="col-md-2">
+                                <select name="user" id="user" class="form-control" searchdisable="true" formControlName="operationClaimId">
+                                    <option [value]="user.id" *ngFor="let user of users">
+                                        {{user.firstName}} {{user.lastName}} -- {{user.gsm}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-8">
+                        <button type="button" (click)="athorizationAdded()" class="btn btn-fill btn-success">Yetki Ekle</button>
+                    </div>
+                    </form>
+                  <!--Yetkilendirme Bitiş-->
+                  
+
+                </div>
+            </div>
+      
+            <!--Personel Tablo Bşl.-->
+        <div class="col-lg-4 col-md-4">
+            <div class="card">
+                <div class="col-md-12">
+                    <div class="card card-plain">
+                        <div class="card-header card-header-danger">
+                            <h4 class="card-title mt-0">Müşteriler</h4>                            
+                            <input matInput placeholder="Müşteri Email-Gsm Göre Arayınız" type="text" [(ngModel)]="filterText"  >                    
+                            
+                        </div>    
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class=" text-primary">
+                                        <th>Id</th>
+                                        <th>Müşteri Adı</th>
+                                        <th>Gsm</th>
+                                        <th>Email</th>
+                                        <th>Yetki</th>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let user of users |userPipe:filterText">
+                                            <th scope="row">{{ user.id }}</th>
+                                            <td>{{ user.firstName }} {{user.lastName}} </td>
+                                            <td>{{user.gsm}}</td>
+                                            <td>{{user.email}}</td>
+                                            <td>{{user.claim}}</td>
+                                            <td>
+                                    </tbody>
+                                </table>
+                        
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+</div>
+    </div>
+</div>

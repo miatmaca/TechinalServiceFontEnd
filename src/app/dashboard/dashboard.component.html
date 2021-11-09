@@ -1,0 +1,300 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">content_copy</i>
+                        </div>
+                        <p class="card-category">Serviste Olan Ürün</p>
+                        <h3 class="card-title" [(ngModel)]="numberOfRepairProduct" id="numberOfAcceptedProduct">
+                            {{numberOfRepairProduct}}
+                            <small>Adet</small>
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons text-success">warning</i>
+                            <a href="javascript:void(0)">Ayrıntılar...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">store</i>
+                        </div>
+                        <p class="card-category">Teslime Hazır Ürün</p>
+                        <h3 class="card-title" [(ngModel)]="numberOfReadyProduct" id="numberOfReadyProduct">
+                            {{numberOfReadyProduct}} <small>Adet</small></h3>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons text-success">warning</i>
+                            <a href="javascript:void(0)">Ayrıntılar...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">info_outline</i>
+                        </div>
+                        <p class="card-category">Servise Gidicek Ürün Sayısı</p>
+                        <h3 class="card-title" [(ngModel)]="numberOfAcceptedProduct" id="numberOfAcceptedProduct">
+                            {{numberOfAcceptedProduct}} <small>Adet</small></h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i>Service Gönder
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--ProductInfo-->
+
+
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-warning"> <button class="btn btn-fill btn-success"
+                            style="float: right" (click)="DtoListed()" id="ekle">Listele</button>
+                        <h4 class="card-title">Ürün Bilgisi</h4>
+                        <p class="card-category" [(ngModel)]="date">{{date}}</p>
+                       
+                        <div class="col-md-4">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Müşteri Adı-Gsm-Arıza Bilgisine Göre Arayınız" type="text" [(ngModel)]="filterText" class="form-control"
+                             id="filterText" style="width: 200px;">
+                          </mat-form-field>                         
+                        </div>
+                        <div class="col-md-4">
+                            <select name="stateName" id="stateName" class="form-control" searchdisable="true"
+                              style="float: right" [(ngModel)]="selectedState" style="float: right">
+                              <option>Hepsi</option>
+                              <option type="number" [value]="stateControl.stateName" aria-placeholder="Durum Bilgisi "
+                                  *ngFor="let stateControl of stateControls">{{stateControl.stateName}}
+                              </option>
+                          </select>
+                              </div>
+
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover">
+                            <thead class="text-warning">
+                                <th>ID</th>
+                                <th>Marka</th>
+                                <th>Oem </th>
+                                <th>Kategori</th>
+                                <th>Seri No</th>
+                                <th>Arıza </th>
+                                <th>Durum</th>
+                                <th>Müşteri </th>
+                                <th>Gsm</th>
+                                <th>Oluşturulma Tarhi</th>
+                                <th>Oluşturan Kişi</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let productInfo of productInfos | filterPipe:filterText">
+                                    <th scope="row"> {{ productInfo.productId }}</th>
+                                    <td>{{ productInfo.brandName }}</td>
+                                    <td>{{ productInfo.oemName }}</td>
+                                    <td>{{ productInfo.category }}</td>
+                                    <td>{{ productInfo.serialNo }}</td>
+                                    <td>{{ productInfo.faultName }}</td>
+                                    <td>{{ productInfo.stateName }}</td>
+                                    <td>{{ productInfo.customerName }}</td>
+                                    <td>{{productInfo.gsm}}</td>
+                                    <td>{{ productInfo.createdDate }}</td>
+                                    <td>{{ productInfo.userNameSurname }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-fill btn-success" style="float: right"
+                                            data-toggle="modal" data-target="#updateProduct" id="productUpdate"
+                                            (click)="add(productInfo.productId)">İşlem
+                                            Yap </button>
+                                        <button type="button" class="btn btn-fill btn-success" data-toggle="modal"
+                                            data-target="#detail" (click)="getAllMadeProcesDto(productInfo.productId)">
+                                            Detay Gör </button>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Ürün İşlem Güncelleme-->
+
+    <div class="modal fade" id="updateProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ürün Güncellemesi</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="productInfoForm">
+                        <div class="mb-3">
+                            <label for="productNo"> Ürün Numarası</label>
+                            <div class="form-group">
+                                <input type="text" id="productId" formControlName="productId" class="form-control"
+                                    placeholder="Ürün Numarası" [(ngModel)]="productId" 
+                                    disabled />
+                            </div><br>
+
+                            <label> Marka </label>
+                            <div class="form-group">
+                                <input type="text" id="Marka" formControlName="brandName" class="form-control"
+                                    placeholder="Marka Adı" [(ngModel)]="brandName" 
+                                    disabled />
+                            </div><br>
+
+                            <label> Oem </label>
+                            <div class="form-group">
+                                <input type="text" id="Oem" formControlName="oem" class="form-control"
+                                    placeholder="oem Adı" [(ngModel)]="oem"  disabled />
+                            </div><br>
+
+                            <label> Kategori </label>
+                            <div class="form-group">
+                                <input type="text" id="category" formControlName="category" class="form-control"
+                                    placeholder="Kategori" [(ngModel)]="category" disabled />
+                            </div><br>
+
+                            <label> Seri-No </label>
+                            <div class="form-group">
+                                <input type="text" id="serialNo" formControlName="serialNo" class="form-control"
+                                    placeholder="Serial No" [(ngModel)]="serialNo" 
+                                    disabled />
+                            </div><br>
+
+                            <label> Arıza Durumu </label>
+                            <div class="form-group">
+                                <input type="text" id="faultName" formControlName="faultName" class="form-control"
+                                    placeholder="Serial No" [(ngModel)]="faultName" 
+                                    disabled />
+                            </div><br>
+
+                            <!-- <div class="form-group">                               
+                               <label > Arıza Durumu </label>
+                            <select name="faultName" id="faultName" class="form-control" formControlName="faultName" 
+                                searchdisable="true" style="float: right" [(ngModel)]="faultName"  
+                                style="float: right">                                                                 
+                                <option type="number" [value]="stateControl.id" aria-placeholder="Arıza Bilgisi " 
+                                    *ngFor="let faultState of faultStates">{{faultState.faultName}}
+                                </option>
+                            </select>
+                        </div><br> -->
+
+
+                            <label> Müşteri </label>
+                            <div class="form-group">
+                                <input type="text" id="customerName" formControlName="customerName" class="form-control"
+                                    placeholder="Müşteri Bilgisi" [(ngModel)]="customerName"
+                                    formControlName="customerName" />
+                            </div><br>
+
+                            <div class="form-group">
+                                <label>Durum</label>
+                                <select name="stateName" id="stateName" class="form-control"
+                                    formControlName="stateControl" searchdisable="true" style="float: right"
+                                    [(ngModel)]="stateControl" aria-placeholder="asd" style="float: right">
+                                    <option type="number" [value]="stateControl.id" aria-placeholder="Durum Bilgisi "
+                                        *ngFor="let stateControl of stateControls">{{stateControl.stateName}}
+                                    </option>
+                                </select>
+                            </div><br>
+
+
+
+
+                            <button class="btn btn-fill btn-success" id="customerAdd" (click)="processStatusUpdate()"
+                                name="customerAdd"  data-dismiss="modal">Güncelle
+                            </button>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Ürün Detay Sayfası-->
+
+
+
+<div class="modal fade bd-example-modal-lg" id="detail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ürün Güncellemesi</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body table-responsive">
+                    <table class="table table-hover">
+                        <thead class="text-warning">
+                            <th>ID</th>
+                            <th>Marka</th>
+                            <th>Oem </th>
+                            <th>Kategori</th>
+                            <th>Seri No</th>
+                            <th>Arıza </th>
+                            <th>Durum</th>
+                            <!-- <th>Müşteri </th> -->
+                            <th>Durum Notu</th>
+                            <th>Yapılan İşlem</th>
+                            <th>Fiyat</th>
+                            <th>Oluşturulma Tarihi</th>
+                            <th>Müşteri Bilgisi</th>
+                            <th>Gsm</th>
+                            <!-- <th>Değişim  Tarihi</th>
+                            <th>Değiştiren Kişi</th> -->
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let madeProceDto of madeProcessDtos ">
+                                <th scope="row"> {{ madeProceDto.productId }}</th>
+                                <td>{{ madeProceDto.brandName }}</td>
+                                <td>{{ madeProceDto.oemName }}</td>
+                                <td>{{ madeProceDto.categoryName }}</td>
+                                <td>{{ madeProceDto.serialNo }}</td>
+                                <td>{{ madeProceDto.faultName }}</td>
+                                <td>{{ madeProceDto.stateControl }}</td>
+                                <td>{{madeProceDto.stateNote}}</td>
+                                <td>{{ madeProceDto.madeProcess }}</td>
+                                <td>{{ madeProceDto.price}} ₺ </td>
+                                <td>{{ madeProceDto.createdDate }}</td>
+                                <td>{{madeProceDto.customer}}</td>
+                                <td>{{madeProceDto.gsm}}</td>
+                        </tbody>                                 
+                                  
+                    </table>
+                    <label> Toplam Fiyat </label>
+                    <input type="number" id="totalPrice"  class="form-control"  
+                     [(ngModel)]="totalPrice" disabled />
+
+                    <button type="button" class="btn btn-fill btn-success" style="float: right" id="detailButton" (click)="makeThePayment()" >
+                        Ödemeyi Gerçekleştir </button>
+                    <div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

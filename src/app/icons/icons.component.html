@@ -1,0 +1,244 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <!--Marka Ekleme-Güncelleme Bölümü -->
+            <div class="col-lg-3 col-md-3">
+                <form [formGroup]="brandAddForm">
+                    <div class="card">
+                        <div class="card-header card-header-warning"> 
+                            <h4 class="card-title">Marka Bilgisi</h4>
+                            <p class="card-category"></p>
+                        </div>
+
+                        Marka Adı <input matInput placeholder="Marka Adı" type="brandName" formControlName="brandName">
+                        Kullanım Durumu
+                        <select id="cars" class="dropdown" formControlName="status">
+                            <option value="1" selected>Aktif</option>
+                            <option value="0">Pasif</option>
+                        </select>
+
+                        <button type="button" (click)="brandAdd()" class="btn btn-fill btn-success">Kaydet</button>
+                        <button type="button" class="btn btn-fill btn-success" (click)="brandUpdate()">Güncelle</button>
+                    </div>
+                </form>
+            </div>
+
+            <!--Oem Ekleme-Güncelleme Bölümü-->
+            <div class="col-lg-3 col-md-3">
+                <form [formGroup]="oemAddForm">
+                    <div class="card">
+                        <div class="card-header card-header-warning">
+                            <h4 class="card-title">Oem Bilgisi</h4>
+                            <p class="card-category"></p>
+                        </div>
+
+                        Oem Adı <input matInput placeholder="Oem Adı" type="oemName" formControlName="oemName">
+                        Kullanım Durumu
+                        <select id="oem" formControlName="status">
+                            <option value="1" selected>Aktif</option>
+                            <option value="0">Pasif</option>
+                        </select>
+
+                        <button type="button" (click)="oemAdd()" class="btn btn-fill btn-success">Kaydet</button>
+                        <button type="button" class="btn btn-fill btn-success" (click)="oemUpdate()">Güncelle</button>
+                    </div>
+                </form>
+            </div>
+
+            <!--Kategori Ekleme-Güncelleme Bölümü-->
+            <div class="col-lg-3 col-md-3">
+                <form [formGroup]="categoryAddForm">
+                <div class="card">
+                    <div class="card-header card-header-warning"> <button class="btn btn-fill btn-success"
+                            style="float: right" id="brand" name="brand"> Ekle</button>
+                        <h4 class="card-title">Kategori Bilgisi</h4>
+                        <p class="card-category"></p>
+                    </div>
+                    Oem <select id="oem" formControlName="oemId" >
+                        <option [value]="oem.id" *ngFor="let oem of oems">{{oem.oemName}}</option>
+                        
+                    </select>
+
+                    Kategori Adı <input matInput placeholder="Kategori Adı" type="category" formControlName="categoryName">                   
+                    
+                    Kullanım Durumu
+                    <select id="category" formControlName="status">
+                        <option value="1" selected>Aktif</option>
+                        <option value="0">Pasif</option>
+                    </select>
+                        <button type="button" (click)="categoryAdd()" class="btn btn-fill btn-success">Kaydet</button>
+                        <button type="button" class="btn btn-fill btn-success" (click)="categoryUpdate()">Güncelle</button>
+                   
+                </div>
+            </form>
+            </div>
+
+            <!-- Boşta
+            <div class="col-lg-3 col-md-3">
+                <div class="card">
+                    <div class="card-header card-header-warning"> <button class="btn btn-fill btn-success"
+                            style="float: right" id="brand" name="brand"> Ekle</button>
+                        <h4 class="card-title">Boş Bilgisi</h4>
+                        <p class="card-category"></p>
+                    </div>
+
+                    Marka Adı <input type="text" placeholder="Burdayım">
+                    Kullanım Durumu<input type="text" placeholder="Şurdayım">
+                    <button class="btn btn-fill btn-success">Ekle</button>
+                    <button class="btn btn-fill btn-success">Güncelle</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!--Alt Kısım-->
+
+    <div class="container-fluid">
+        <div class="row">
+            <!--Marka Listeleme Bölümü -->
+            <div class="col-lg-3 col-md-3">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title mt-0">Markalar</h4>
+
+                        <div class="col-md-4">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Marka Adına Göre Arayınız" type="text" [(ngModel)]="filterText" class="form-control"
+                                 id="filterText" style="width: 200px;">
+                              </mat-form-field>                         
+                            </div>
+
+                        <!-- <button class="btn btn-fill btn-success" id="gsmget"> Getir </button> -->
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+                            <table class="table table-hover" id="brandTable">
+
+                                <thead class=" text-primary">
+                                    <th>Id</th>
+                                    <th>Marka </th>
+                                    <th>Status</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let brand of brands  |filterList:filterText ">
+                                        <th scope="row">{{ brand.id }} </th>
+                                        <td>{{ brand.brandName }} </td>
+                                        <td>{{brand.status}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Oem Listeleme Bölümü-->
+            <div class="col-lg-3 col-md-3">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title mt-0">Orjinal Ürün</h4>
+
+                       <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Oem Bilgisine Göre Arayınız" type="text" [(ngModel)]="filterOem" class="form-control"
+                                 id="filterOem" style="width: 200px;">
+                              </mat-form-field>        
+                            <label>{{filterOem  }}</label>
+                       
+                    </div>
+                   <div class="card-body">
+                        <div class="table-responsive">
+
+                            <table class="table table-hover" id="brandTable">
+
+                                <thead class=" text-primary">
+                                    <th>Id</th>
+                                    <th>Oem </th>
+                                    <th>Status</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let oem of oems | filterOemPipe:filterOem">
+                                        <th scope="row">{{ oem.id }} </th>
+                                        <td>{{ oem.oemName }} </td>
+                                        <td>{{oem.status}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Kategori Listeleme Bölümü-->
+            <div class="col-lg-4 col-md-3">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title mt-0">Kategori</h4>
+
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Kategori Bilgisine Göre Arayınız" type="text" [(ngModel)]="filterCategory" class="form-control"
+                             id="filterText" style="width: 200px;">
+                          </mat-form-field>        
+
+                        <!-- <button class="btn btn-fill btn-success" id="gsmget"> Getir </button> -->
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="categoryTable">
+
+                                <thead class=" text-primary">
+                                    <th>Id</th>
+                                    <th>Oem</th>
+                                    <th>Kategori </th>
+                                    <th>Status</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let category of categories |filterCategoryPipe:filterCategory ">
+                                        <th scope="row">{{ category.id }} </th>
+                                        <td>{{category.oemId}}</td>
+                                        <td>{{ category.categoryName }} </td>
+                                        <td>{{category.status}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Boşta
+            <div class="col-lg-2 col-md-3">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title mt-0">Markalar</h4>
+
+                        <input id="filterText" type="text" placeholder="Marka Giriniz" />
+
+                        <button class="btn btn-fill btn-success" id="gsmget"> Getir </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class=" text-primary">
+                                    <th>Id</th>
+                                    <th>Marka </th>
+                                    <th>Status</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1 </th>
+                                        <td> Asus </td>
+                                        <td>Aktif</td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+
+
+        </div>

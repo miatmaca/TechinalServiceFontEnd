@@ -1,0 +1,324 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 col-md-10">
+                <div class="card">
+                    <div class="card-header card-header-warning"> <button class="btn btn-fill btn-success"
+                            style="float: right" id="ekle" name="ekle" (click)="add()"> Ekle</button>
+                        <h4 class="card-title">Ürün Bilgisi</h4>
+                        <p class="card-category"></p>
+
+                    </div>
+                    <br><br>
+
+                    <form [formGroup]="productInfoForm">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="col-md">Marka Adı</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="brand" id="brand" class="form-control" searchdisable="true" [(ngModel)]="selectedBrand" 
+                                    formControlName="brandName">
+                                    <option [value]="brand.brandName" *ngFor="let brand of brands">{{brand.brandName}}
+                                    </option>
+                                </select>
+
+
+
+                            </div>
+                            <div class="container-fluit">
+                                <button type="button" class="btn btn-fill btn-success" data-toggle="modal"
+                                    data-target="#brandAdd">Marka Ekle </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="col-md">Oem</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="oem" id="oem" class="form-control" searchdisable="true"
+                                    formControlName="oemName" [(ngModel)]="selectedOem">
+                                    <option [value]="oem.id" *ngFor="let oem of oems">{{oem.oemName}}
+                                    </option>
+                                </select >
+                                                                        
+                            </div>
+                            <div class="container-fluit">
+                                <button type="button" class="btn btn-fill btn-success" data-toggle="modal"
+                                    data-target="#oemAdd">Oem Ekle </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="col-md">Kategori Adı</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="category" id="category" class="form-control" searchdisable="true"
+                                    formControlName="categoryName" [(ngModel)]="selectedCategory">
+                                  
+                                </select>
+                            </div>
+                            <!-- <div class="container-fluit">
+                                    <button type="button" class="btn btn-fill btn-success" data-toggle="modal"
+                                    data-target="#categoryAdd">Kategori Ekle </button>
+                                </div> -->
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="col-md">SerialNo </label>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="SerialNo" type="text" id="serialNo" name="serialNo" [(ngModel)]="selectedSerial"
+                                        formControlName="serialNo">
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="col-md">Arıza Bilgsi</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="faultName" id="faultName" class="form-control" searchdisable="true" [(ngModel)]="selectedFaultName"
+                                    formControlName="faultName">
+                                    <option [value]="faultState.faultName" aria-placeholder="Arıza Durumu "
+                                        *ngFor="let faultState of faultStates ">{{faultState.faultName}}
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- <div class="container-fluit">
+                                    <button type="button" class="btn btn-fill btn-success" data-toggle="modal"
+                                    data-target="#faultNameAdd">Arıza Bilgisi Ekle </button>
+                                </div> -->
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="col-md-auto">Durum Bilgisi</label>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="stateName" id="stateName" class="form-control" searchdisable="true" [(ngModel)]="selectedStateControl"
+                                    formControlName="stateControl">
+                                    <option type="number" [value]="stateControl.id" aria-placeholder="Durum Bilgisi "
+                                        *ngFor="let stateControl of stateControls">{{stateControl.stateName}}
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- <div class="container-fluit">
+                                    <button type="button" class="btn btn-fill btn-success" data-toggle="modal"
+                                    data-target="#stateControlName">Durum Bilgisi Ekle </button>
+                                </div> -->
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="col-md">Müşteri Bilgisi</label>
+                            </div>
+                            <div class="col-md-3">
+
+                                <select class="form-control" id="customer" searchdisable="true"
+                                    formControlName="customerId" [(ngModel)]="selectedCustomer">
+                                    <option [value]=customer.id type="number" aria-placeholder="Müşteri Bilgisi "
+                                        *ngFor="let customer of customers">
+                                        {{customer.firstName}} {{customer.lastName}}</option>
+                                </select>
+                            </div>
+                            <div class="container-fluit">
+                                <button type="button" class="btn btn-fill btn-success" data-toggle="modal"
+                                    data-target="#customerAdd">Müşteri Ekle </button>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                                <div class="col-md-1">
+                                    <label class="col-md">Çalışan Bilgisi</label>
+                                </div>
+                                <div class="col-md-3">
+                                  <select name="user" id="user" class="form-control" searchdisable="true"
+                                        formControlName="createdBy" [(ngModel)]="selectedUser">
+                                        <option [value]="user.id" *ngFor="let user of users">{{user.firstName}}
+                                        </option>
+                                    </select>
+                                   
+                                        <input placeholder="{{userInfo}}" [(ngModel)]="userInfo" disabled>
+                                     
+                                </div>
+                                
+                            </div> -->
+
+                    </form>
+
+                    <div class="col-8">
+                        <button type="button" (click)="add()" class="btn btn-fill btn-success">Kaydet</button>
+                    </div>
+
+
+                </div>
+            </div>
+            <!--Müşteri Bilgisi Tablosu-->
+            <div class="col-lg-2 col-md-2">
+                <div class="card">
+                    <div class="col-md-12">
+                        <div class="card card-plain">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title mt-0">Müşteriler</h4>
+
+                                <input matInput placeholder="Müşteri Adı-Gsm Göre Arayınız" type="text"
+                                    [(ngModel)]="filterText" id="filterText">
+
+
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class=" text-primary">
+                                            <th>Id</th>
+                                            <th>Müşteri Adı</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let customer of customers | filterCustomer:filterText">
+                                                <th scope="row">{{ customer.id }}</th>
+                                                <td>{{ customer.firstName }} {{customer.lastName}} </td>
+
+                                                <td>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--  Brand Modal -->
+    <div class="modal fade" id="brandAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Yeni Marka Ekleyiniz</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="brandAddForm">
+                        <div class="mb-3">
+                            <label for="brandName">Marka Adı</label>
+                            <div class="form-group">
+                                <input type="text" id="brandName" formControlName="brandName" class="form-control"
+                                    placeholder="Marka Adı" [(ngModel)]="brandNameModal" />
+                            </div><br>
+                            <button class="btn btn-fill btn-success" id="brandAdd" (click)="brandAdd()"
+                                name="brandAdd">Markayı Ekle </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--  Oem Modal -->
+    <div class="modal fade" id="oemAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Yeni Oem Ekleyiniz</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="oemAddForm">
+                        <div class="mb-3">
+                            <label for="brandName">Marka Adı</label>
+                            <div class="form-group">
+                                <input type="text" id="oemAdd" formControlName="oemName" [(ngModel)]="oemNameModal"
+                                    class="form-control" placeholder="Oem Adı" />
+                            </div><br>
+                            <button class="btn btn-fill btn-success" id="oemAdd" (click)="oemAdd()" name="oemAdd">Oem
+                                Ekle </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  Kategori Modal -->
+    <div class="modal fade" id="categoryAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Yeni Oem Ekleyiniz</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="categoryAddForm">
+                        <div class="mb-3">
+                            <label for="categoryName">Kategori Adı</label>
+                            <div class="form-group">
+                                <input type="text" id="categoryAdd" formControlName="categoryName" class="form-control"
+                                    placeholder="Kategori Adı" />
+                            </div><br>
+                            <button class="btn btn-fill btn-success" id="categoryAdd" name="categoryAdd">Kategori Ekle
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--  Customer Modal -->
+<div class="modal fade" id="customerAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Yeni Müşteri Bilgisi Ekleyiniz</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="customerAddForm">
+                    <div class="mb-3">
+                        <label for="customerName"> Adı</label>
+                        <div class="form-group">
+                            <input type="text" id="firstName" formControlName="firstName" class="form-control"
+                                placeholder="Müşteri Adı" />
+                        </div><br>
+
+                        <label for="customerName">Soyadı</label>
+                        <div class="form-group">
+                            <input type="text" id="lastName" formControlName="lastName" class="form-control"
+                                placeholder="Müşteri Soyadı" />
+                        </div><br>
+
+                        <label for="customerName">Email</label>
+                        <div class="form-group">
+                            <input type="text" id="email" formControlName="email" class="form-control"
+                                placeholder="email@email.com" />
+                        </div><br>
+
+                        <label for="customerName">Gsm</label>
+                        <div class="form-group">
+                            <input type="text" id="gsm" formControlName="gsm" class="form-control"
+                                placeholder="Telefon Numarası" />
+                        </div><br>
+
+                        <button class="btn btn-fill btn-success" id="customerAdd" (click)="customerAdd()"
+                            name="customerAdd">Müşteri Ekle </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

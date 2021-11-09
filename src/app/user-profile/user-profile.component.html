@@ -1,0 +1,119 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Edit Profile</h4>
+            <p class="card-category">Complete your profile</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="userProfileForm">
+              <div class="row">
+                <div class="col-md-5">
+                  <label>Kullanıcı Numarası :</label>
+                  <input placeholder="Kullanıcı Numarası (disabled)" formControlName="id" disabled>
+
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email" type="email" [(ngModel)]="email" formControlName="email">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Fist Name" type="text" [(ngModel)]="firstName"
+                      formControlName="firstName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Last Name" type="text" [(ngModel)]="lastName"
+                      formControlName="lastName">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Gsm" type="text" [(ngModel)]="gsm" formControlName="gsm">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <button mat-raised-button type="submit" (click)="userUpdate()" class="btn btn-danger pull-right">Profili
+                Güncelle</button>
+
+                <button type="button" class="btn btn-fill btn-success" data-toggle="modal"
+                data-target="#passwordChanged">Parola Güncelle </button>
+
+              <div class="clearfix"></div>
+            </form>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-profile">
+          <div class="card-avatar">
+            <a href="javascript:void(0)">
+              <img class="img" src="./assets/img/faces/marc.jpg" />
+            </a>
+          </div>
+          <div class="card-body">
+            <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+            <h4 class="card-title">Alec Thompson</h4>
+            <p class="card-description">
+              Don't be scared of the truth because we need to restart the human foundation in truth And I love you like
+              Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+            </p>
+            <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--  PasswordChanged Modal -->
+<div class="modal fade" id="passwordChanged" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Parola Güncelle</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="changedPasswordForm">
+          <div class="mb-3">
+            <label for="email"> Email</label>
+            <div class="form-group">
+              <input type="text" id="email" formControlName="email" class="form-control"
+                placeholder="Email"  disabled/>
+            </div><br>
+
+            <label for="newPassword">Yeni Parola</label>
+            <div class="form-group">
+              <input type="text" id="newPassword" formControlName="newPassword" class="form-control"
+                placeholder="Yeni Parola" />
+            </div><br>
+
+            <label for="oldPassword">Eski Parola</label>
+            <div class="form-group">
+              <input type="text" id="oldPassword" formControlName="oldPassword" class="form-control"
+                placeholder="Eski Parola" />
+            </div><br>
+            <button mat-raised-button type="submit" (click)="changedPassword()" class="btn btn-danger pull-right">Parola Güncelle</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
