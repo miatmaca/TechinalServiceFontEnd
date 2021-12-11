@@ -32,6 +32,7 @@ import { UserPipe } from 'app/pipes/user.pipe';
 
 
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -64,7 +65,8 @@ import { UserPipe } from 'app/pipes/user.pipe';
     FilterCategoryPipe,
     FilterCustomerPipe,
     CommonfilterPipe,
-    UserPipe
+    UserPipe,
+    
    
 
   ]

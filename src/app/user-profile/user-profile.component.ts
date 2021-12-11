@@ -6,7 +6,7 @@ import { User } from 'app/models/user';
 import { AuthService } from 'app/services/auth.service';
 import { UserService } from 'app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
-
+import * as jQuery from 'jquery';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -20,7 +20,8 @@ id:number
     lastName:string
     email:string
     gsm:string
-
+    name = 'Angular 6';
+    InputValue: any;
 
 
   constructor(private userService:UserService,
@@ -30,8 +31,11 @@ id:number
   ngOnInit() {
 this.createForm()
 this.getAllUserInfo();
-  
-  
+
+
+  function isNumberKey(evt, element) {
+   
+  }
   }
   createForm(){
     this.userProfileForm=this.formBuilder.group({
@@ -61,6 +65,7 @@ this.getAllUserInfo();
   this.gsm=response.gsm
  })  
   }
+ 
   changedPassword(){
     if (this.changedPasswordForm.valid)
     {

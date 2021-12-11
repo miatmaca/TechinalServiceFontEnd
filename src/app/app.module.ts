@@ -34,6 +34,7 @@ import { CommonfilterPipe } from './pipes/commonfilter.pipe';
 import { UserPipe } from './pipes/user.pipe';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -57,6 +58,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     AdminLayoutComponent,
     TestComponent,    
     TotalPricePipePipe,
+   
     
 
   ],
