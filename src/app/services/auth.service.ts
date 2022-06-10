@@ -16,7 +16,9 @@ export class AuthService {
   constructor(private httpClient:HttpClient) { }
 
 register(registerModel:RegisterModel){
-
+console.log(registerModel);
+registerModel.createdBy=1;
+registerModel.modifiedBy=1;
 return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl+"register",registerModel);
 
 }

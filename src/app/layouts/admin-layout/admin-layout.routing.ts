@@ -64,7 +64,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'typography',     component:TypographyComponent ,canActivate:[ControlGuard]},
     { path: 'icons',          component: IconsComponent, canActivate:[ControlGuard]},
     // { path: 'maps',           component: MapsComponent ,canActivate:[ControlGuard]},
-    { path: 'notifications',  component: NotificationsComponent ,canActivate:[AuthGuard] },
+    { path: 'notifications',  component: NotificationsComponent  },//,canActivate:[AuthGuard]
     { path: 'upgrade',        component: UpgradeComponent,canActivate:[ControlGuard] },
     { path: 'productInfo',    component:ProductInfoComponent ,canActivate:[ControlGuard]},
    
